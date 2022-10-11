@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 const messageController = require('../controllers/messageController');
+const userController = require('../controllers/userController');
 
 // GET routes
 router.get('/', messageController.index);

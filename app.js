@@ -6,6 +6,8 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 
+require('dotenv').config();
+
 var app = express();
 
 // Set up mongoose connection

@@ -1,5 +1,14 @@
-extends layout
+extends layout 
 
 block content
-  h1= title
-  p Welcome to #{title}
+    div.content
+        h1 Welcome to the Members Only Message Board
+        p Messages
+
+        div.modal#sign-up
+            div.modal-content
+                    include sign-up.pug
+        div.modal#login
+            div.modal-content
+                    include login.pug
+

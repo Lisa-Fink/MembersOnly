@@ -1,7 +1,13 @@
 doctype html
+style
+    include ../public/stylesheets/style.css
 html
-  head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-    block content
+    head
+        title Members Only
+        link(rel='stylesheet', href='/stylesheets/style.css')
+        link(rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200")
+    body
+        include navigation.pug
+        
+        block content
+        include modalScript.pug

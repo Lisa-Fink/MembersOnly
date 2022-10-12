@@ -1,0 +1,49 @@
+script(type='text/javascript' defer).
+    const signUpBtn = document.getElementById('sign-up-btn');
+    const loginBtn = document.getElementById('login-btn');
+
+    const signUpFunc = () => {
+        const signUpModal = document.getElementById('sign-up');
+        signUpModal.style.display = 'flex';
+        
+        const cancelBtn = document.getElementById('sign-up-cancel')
+        cancelBtn.onclick = (e) => {
+            e.preventDefault()
+            signUpModal.style.display = 'none'
+        }
+
+        const link = document.getElementById('change-to-login')
+        link.onclick = () => {
+            signUpModal.style.display = 'none'
+            loginFunc()
+            return false
+        }
+
+        const xIcon = document.getElementById('sign-up-x');
+        xIcon.onclick = () => signUpModal.style.display = 'none'
+    };
+
+    const loginFunc = () => {
+        const loginModal = document.getElementById('login')
+        login.style.display = 'flex'
+        const cancelBtn = document.getElementById('login-cancel')
+        cancelBtn.onclick = (e) => {
+            e.preventDefault()
+            loginModal.style.display = 'none'
+        }
+        const link = document.getElementById('change-to-sign-up')
+        link.onclick = () => {
+            loginModal.style.display = 'none'
+            signUpFunc()
+            return false
+        }
+
+        const xIcon = document.getElementById('login-x');
+        xIcon.onclick = () => loginModal.style.display = 'none'
+    }
+
+    signUpBtn.onclick = signUpFunc;
+    loginBtn.onclick = loginFunc;
+
+
+

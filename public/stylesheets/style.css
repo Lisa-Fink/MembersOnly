@@ -36,16 +36,19 @@ nav {
     gap: 20px;
 }
 
-nav button {
+button {
     padding: 6px 40px;
     border-radius: 10px;
-    border: 1px solid blue;
+    border: 1px solid rgb(40, 40, 154);
     font-size: 16px;
     background-color: aliceblue;
+    font-weight: bold;
+    color: rgb(31, 88, 138);
+    cursor: pointer;
 }
 
-nav button:hover {
-    background-color: rgb(183, 201, 218)
+button:hover {
+    background-color: rgb(183, 201, 218);
 }
 
 .content {
@@ -67,16 +70,16 @@ nav button:hover {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(107, 125, 140, 0.187);
+    background-color: rgba(107, 125, 140, 0.334);
     justify-content: center;
     align-items: flex-start;
 }
 
 .modal-content {
     background-color: aliceblue;
-    padding: 20px;
-    border: 1px solid blue;
-    border-radius: 5px;
+    padding: 20px 80px;
+    border: 1px solid rgb(40, 40, 154);
+    border-radius: 15px;
 }
 
 
@@ -91,8 +94,44 @@ nav button:hover {
 .modal-x {
     display: flex;
     justify-content: flex-end;
+    margin-right: -60px;
 }
 
 #sign-up-x, #login-x {
     cursor: pointer;
 }
+
+.user-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.user-form > div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.user-form input {
+    padding: 8px;
+    border-radius: 12px;
+    border: 1px solid rgb(40, 40, 154);
+}
+
+.form-btn button {
+    width: 100%
+}
+
+.form-btn {
+    padding-bottom: 10px;
+}
+
+.modal-content a {
+    color: rgb(40, 40, 154);
+}
+
+.modal-content a:hover {
+    color: rgb(18, 18, 75);
+}
+

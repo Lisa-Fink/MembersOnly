@@ -36,7 +36,7 @@ nav {
     gap: 20px;
 }
 
-button {
+button, .btn-link {
     padding: 6px 40px;
     border-radius: 10px;
     border: 1px solid rgb(40, 40, 154);
@@ -47,8 +47,14 @@ button {
     cursor: pointer;
 }
 
-button:hover {
+.btn-link:hover, button:hover {
     background-color: rgb(183, 201, 218);
+}
+
+.btn-link {
+    text-decoration: none;
+    text-align: center;
+
 }
 
 .content {
@@ -135,3 +141,15 @@ button:hover {
     color: rgb(18, 18, 75);
 }
 
+.form-container {
+    max-width: 400px;
+    padding: 20px 100px;
+    margin: 0 auto;
+    background-color: aliceblue;
+    border-radius: 15px;
+    border: 1px solid rgb(40, 40, 154);
+}
+
+.form-link {
+    text-align: center;
+}

@@ -1,0 +1,24 @@
+h1= 'Log In'
+form#login-form(class='user-form' method='POST' action='/login')
+    div 
+        label(for='username') Username:
+        input#username(type='text', placeholder='Username' name='username' maxlength='30' required='true')
+
+    div 
+        label(for='password') Password (6-20 characters)*:
+        input#password(type='password', placeholder='Password' name='password' maxlength='20' required='true')
+    div.form-btn
+        if !loginPg
+            div
+                button(type='submit') Log In 
+
+            div 
+                button(id='login-cancel') Cancel
+        else 
+            button(type='submit') Log In 
+
+            a(class='btn-link' href='/') Cancel
+if !loginPg
+    a(href="/" id="change-to-sign-up") Need an Account? Sign-Up
+else 
+    a(href="/sign-up" ) Need an Account? Sign-Up

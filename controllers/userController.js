@@ -2,21 +2,53 @@ const User = require('../models/user');
 
 const { body, validationResult } = require('express-validator');
 
-// sign up page
 exports.index = (req, res, next) => {
-  res.render('index', { title: 'Express' });
+  res.render('index');
 };
 
 exports.signup_get = (req, res, next) => {
-  res.render('sign-up', { title: 'Members Only Sign Up' });
+  res.render('sign-up', { signUpPg: true });
 };
 
-exports.signup_post = (req, res, next) => {
-  res.send('Sign up post');
-};
+exports.signup_post = [
+  body('s_password', 'password must be between 6-20 characters').isLength({
+    min: 6,
+    max: 20,
+  }),
+  body('s_password_confirm').custom((value, { req }) => {
+    if (value !== req.body.s_password) {
+      throw new Error('passwords do not match');
+    }
+
+    return true;
+  }),
+  (req, res, next) => {
+    const errors = validationResult(req);
+    const errs = {};
+    if (errors.errors.length) {
+      const errs = {};
+      for (let err of errors.errors) {
+        errs[err.param] = err.msg;
+      }
+
+
+      res.render('sign-up', {
+        errs: errs,
+        signUpPg: true,
+        signUp: true,
+        username: req.body.s_username,
+        email: req.body.s_email,
+        password: req.body.s_password,
+        passwordConf: req.body.s_password_confirm,
+      });
+      return;
+    }
+    res.redirect('/');
+  },
+];
 
 exports.login_get = (req, res, next) => {
-  res.render('login', { title: 'Members Only Login' });
+  res.render('login', { loginPg: true });
 };
 
 exports.login_post = (req, res, next) => {

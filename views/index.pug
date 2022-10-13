@@ -5,10 +5,15 @@ block content
         h1 Welcome to the Members Only Message Board
         p Messages
 
-        div.modal#sign-up
+        div.modal#sign-up(style=signUp && errs ? 'display:flex': null)
             div.modal-content
-                    include sign-up.pug
-        div.modal#login
+                    div.modal-x
+                        span.material-symbols-outlined#sign-up-x close
+                    include sign-up-form.pug
+        div.modal#login(style=login && errs ? 'display:flex': null)
             div.modal-content
-                    include login.pug
+                    div.modal-x
+                        span.material-symbols-outlined#login-x close
+                    include login-form.pug
+    include modalScript.pug
 

@@ -1,19 +1,4 @@
-div.modal-x
-    span.material-symbols-outlined#login-x close
-
-h1= 'Log In'
-form(class='user-form' method='POST' action='')
-    div 
-        label(for='username') Username:
-        input#username(type='text', placeholder='Username' name='username' maxlength='30' required='true')
-
-    div 
-        label(for='password') Password (6-20 characters)*:
-        input#password(type='password', placeholder='Password' name='password' maxlength='20' required='true')
-    div.form-btn
-        div
-            button(type='submit') Log In 
-
-        div 
-            button(id='login-cancel') Cancel
-a(href="/" id="change-to-sign-up") Need an Account? Sign-Up
+extends layout
+block content
+    div.form-container
+        include login-form.pug

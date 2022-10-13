@@ -3,43 +3,67 @@ script(type='text/javascript' defer).
     const loginBtn = document.getElementById('login-btn');
 
     const signUpFunc = () => {
+        const form = document.getElementById('sign-up-form')
         const signUpModal = document.getElementById('sign-up');
         signUpModal.style.display = 'flex';
+
+        const clearSForm = () => {
+        form.elements['s_username'].value = ''
+        form.elements['s_email'].value = ''
+        form.elements['s_password'].value = ''
+        form.elements['s_password_confirm'].value = ''
+        signUpModal.style.display = 'none'
+
+    }
         
         const cancelBtn = document.getElementById('sign-up-cancel')
         cancelBtn.onclick = (e) => {
             e.preventDefault()
-            signUpModal.style.display = 'none'
+            clearSForm()
         }
 
         const link = document.getElementById('change-to-login')
         link.onclick = () => {
-            signUpModal.style.display = 'none'
+            clearSForm()
             loginFunc()
             return false
         }
 
         const xIcon = document.getElementById('sign-up-x');
-        xIcon.onclick = () => signUpModal.style.display = 'none'
+        xIcon.onclick = () => clearSForm()
+
+        return false
     };
 
     const loginFunc = () => {
         const loginModal = document.getElementById('login')
         login.style.display = 'flex'
         const cancelBtn = document.getElementById('login-cancel')
+
+        const form = document.getElementById('login-form')
+        
+        const clearLForm = () => {
+        form.elements['username'].value = ''
+        form.elements['password'].value = ''
+        loginModal.style.display = 'none'
+    }
+        
+
         cancelBtn.onclick = (e) => {
             e.preventDefault()
-            loginModal.style.display = 'none'
+            clearLForm()
         }
         const link = document.getElementById('change-to-sign-up')
         link.onclick = () => {
-            loginModal.style.display = 'none'
+            clearLForm()
             signUpFunc()
             return false
         }
 
         const xIcon = document.getElementById('login-x');
-        xIcon.onclick = () => loginModal.style.display = 'none'
+        xIcon.onclick = () => clearLForm()
+
+        return false
     }
 
     signUpBtn.onclick = signUpFunc;

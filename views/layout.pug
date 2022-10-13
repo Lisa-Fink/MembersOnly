@@ -1,6 +1,5 @@
 doctype html
-style
-    include ../public/stylesheets/style.css
+
 html
     head
         title Members Only
@@ -10,4 +9,6 @@ html
         include navigation.pug
         
         block content
-        include modalScript.pug
+        style
+            include ../public/stylesheets/style.css
+        

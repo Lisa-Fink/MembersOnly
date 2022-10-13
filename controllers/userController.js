@@ -11,17 +11,46 @@ exports.signup_get = (req, res, next) => {
 };
 
 exports.signup_post = [
-  body('s_password', 'password must be between 6-20 characters').isLength({
-    min: 6,
-    max: 20,
-  }),
-  body('s_password_confirm').custom((value, { req }) => {
-    if (value !== req.body.s_password) {
-      throw new Error('passwords do not match');
-    }
+  body('s_username', 'Username is not valid')
+    .isLength({ min: 3, max: 20 })
+    .isAlphanumeric()
+    .escape()
+    .custom(async (value, { req }) => {
+      const user = await User.findOne({
+        username: req.body.s_username,
+      }).count();
 
-    return true;
-  }),
+      if (user) {
+        console.log(user);
+        throw new Error('Username not available');
+      }
+    }),
+  body('s_email', 'Email is not valid')
+    .isEmail()
+    .normalizeEmail()
+    .custom(async (value, { req }) => {
+      const isNotAvailable = await User.findOne({
+        email: req.body.s_email,
+      }).count();
+      if (isNotAvailable) {
+        throw new Error('There already is an account with that email');
+      }
+    }),
+  body('s_password', 'password must be between 6-20 characters')
+    .isLength({
+      min: 6,
+      max: 20,
+    })
+    .escape(),
+  body('s_password_confirm')
+    .escape()
+    .custom((value, { req }) => {
+      if (value !== req.body.s_password) {
+        throw new Error('passwords do not match');
+      }
+
+      return true;
+    }),
   (req, res, next) => {
     const errors = validationResult(req);
     const errs = {};
@@ -30,7 +59,6 @@ exports.signup_post = [
       for (let err of errors.errors) {
         errs[err.param] = err.msg;
       }
-
 
       res.render('sign-up', {
         errs: errs,

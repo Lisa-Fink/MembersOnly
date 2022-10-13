@@ -1,7 +1,7 @@
 h1= 'Sign Up'
 form#sign-up-form(class='user-form' method='POST' action='/sign-up')
     div 
-        label(for='s_username') Username*: 
+        label(for='s_username') Username (3-20 alphanumeric characters)*: 
         div #{errs && errs.s_username ? errs.s_username: null}
         input#s_username(type='text', placeholder='Username' name='s_username' maxlength='30' required='true' value=username ? username : none)
     

@@ -185,3 +185,8 @@ button, .btn-link {
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
     width: 400px;
 }
+
+#nav-title a {
+    text-decoration: none;
+    color: black
+}

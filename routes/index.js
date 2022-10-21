@@ -5,11 +5,13 @@ const messageController = require('../controllers/messageController');
 const userController = require('../controllers/userController');
 
 // GET routes
-router.get('/', messageController.index);
+router.get('/', userController.index);
 
 router.get('/sign-up', userController.signup_get);
 
 router.get('/login', userController.login_get);
+
+router.get('/logout', userController.logout_get);
 
 // router.get('/membership', userController.membership_get);
 

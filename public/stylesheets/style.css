@@ -178,9 +178,10 @@ button, .btn-link {
 }
 
 #post_message {
-    height: 100px;
+    height: 160px;
     padding: 8px;
     border-radius: 12px;
     border: 1px solid rgb(40, 40, 154);
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    width: 400px;
 }

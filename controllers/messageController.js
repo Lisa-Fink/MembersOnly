@@ -7,6 +7,10 @@ exports.index = (req, res, next) => {
   res.render('index', { title: 'Express' });
 };
 
-exports.message_post = (req, res, next) => {
+exports.create_post = (req, res, next) => {
   res.send('message post');
+};
+
+exports.create_get = (req, res, next) => {
+  res.render('create-post');
 };

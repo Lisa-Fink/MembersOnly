@@ -1,0 +1,22 @@
+h1= 'Create Post'
+form#create-post-form(class='user-form' method='POST' action='/create-post')
+    div
+        label(for='post_title') Title:
+        div #{errs && errs.post_title ? errs.post_title: null}
+        input#post_title(type='text', placeholder='Title' name='post_title' maxLength='100' value=post_title ? post_title : none)
+
+    div 
+        label(for='post_message') Message: 
+        div #{errs && errs.post_message ? errs.post_message: null}
+        textarea#post_message(name="post_message" placeholder='Message' required value=post_message ? post_message : none)
+
+    div.form-btn
+        if !createPg
+            div
+                button(type='submit') Create Post 
+
+            div 
+                button(id='post-cancel') Cancel 
+        else 
+            button(type='submit') Create Post 
+            a(class='btn-link' href='/') Cancel

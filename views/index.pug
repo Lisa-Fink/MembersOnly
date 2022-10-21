@@ -2,8 +2,19 @@ extends layout
 
 block content
     div.content
-        h1 Welcome to the Members Only Message Board
-        p Messages
+        div.message-top
+            h1 Welcome to the Members Only Message Board
+            a.btn-link Create a Post
+        for message in messages
+            div.message-container
+                div.message-data
+                    div.message-author Posted by #{message.userName}
+                    div.message-date= message.date
+                h2=message.title
+                div.message-text=message.message
+
+
+
 
         div.modal#sign-up(style=signUp && errs ? 'display:flex': null)
             div.modal-content

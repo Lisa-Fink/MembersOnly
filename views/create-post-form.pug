@@ -1,5 +1,6 @@
 h1= 'Create Post'
 form#create-post-form(class='user-form' method='POST' action='/create-post')
+    div#top-err=errs && errs.user && errs.user
     div
         label(for='post_title') Title:
         div #{errs && errs.post_title ? errs.post_title: null}
@@ -8,7 +9,7 @@ form#create-post-form(class='user-form' method='POST' action='/create-post')
     div 
         label(for='post_message') Message: 
         div #{errs && errs.post_message ? errs.post_message: null}
-        textarea#post_message(name="post_message" placeholder='Message' required value=post_message ? post_message : none)
+        textarea#post_message(name="post_message" placeholder='Message' required) #{post_message ? post_message : none}
 
     div.form-btn
         if !createPg
@@ -16,7 +17,7 @@ form#create-post-form(class='user-form' method='POST' action='/create-post')
                 button(type='submit') Create Post 
 
             div 
-                button(id='post-cancel') Cancel 
+                button(id='msg-cancel') Cancel 
         else 
             button(type='submit') Create Post 
             a(class='btn-link' href='/') Cancel

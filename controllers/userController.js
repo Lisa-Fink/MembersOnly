@@ -10,12 +10,18 @@ exports.index = async (req, res, next) => {
   if (messages == null) {
     return next(err);
   }
-
-  res.render('index', { user: req.user, messages: messages });
+  res.render('index', {
+    user: req.user && req.user.username ? req.user.username : false,
+    messages: messages,
+  });
 };
 
 exports.signup_get = (req, res, next) => {
-  res.render('sign-up', { signUpPg: true });
+  if (req.user) {
+    res.redirect('/');
+  } else {
+    res.render('sign-up', { signUpPg: true });
+  }
 };
 
 exports.signup_post = [
@@ -59,7 +65,6 @@ exports.signup_post = [
     const errors = validationResult(req);
     const errs = {};
     if (errors.errors.length) {
-      const errs = {};
       for (let err of errors.errors) {
         errs[err.param] = err.msg;
       }
@@ -96,7 +101,11 @@ exports.signup_post = [
 ];
 
 exports.login_get = (req, res, next) => {
-  res.render('login', { loginPg: true });
+  if (req.user) {
+    res.redirect('/');
+  } else {
+    res.render('login', { loginPg: true });
+  }
 };
 
 exports.login_post = passport.authenticate('local', {

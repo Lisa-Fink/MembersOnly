@@ -1,10 +1,17 @@
 const User = require('../models/user');
+const Message = require('../models/message');
 const bcrypt = require('bcryptjs');
 const { body, validationResult } = require('express-validator');
 const passport = require('passport');
 
-exports.index = (req, res, next) => {
-  res.render('index', { user: req.user });
+exports.index = async (req, res, next) => {
+  // get messages
+  const messages = await Message.find({});
+  if (messages == null) {
+    return next(err);
+  }
+
+  res.render('index', { user: req.user, messages: messages });
 };
 
 exports.signup_get = (req, res, next) => {

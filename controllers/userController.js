@@ -1,9 +1,10 @@
 const User = require('../models/user');
-
+const bcrypt = require('bcryptjs');
 const { body, validationResult } = require('express-validator');
+const passport = require('passport');
 
 exports.index = (req, res, next) => {
-  res.render('index');
+  res.render('index', { user: req.user });
 };
 
 exports.signup_get = (req, res, next) => {
@@ -36,21 +37,17 @@ exports.signup_post = [
         throw new Error('There already is an account with that email');
       }
     }),
-  body('s_password', 'password must be between 6-20 characters')
-    .isLength({
-      min: 6,
-      max: 20,
-    })
-    .escape(),
-  body('s_password_confirm')
-    .escape()
-    .custom((value, { req }) => {
-      if (value !== req.body.s_password) {
-        throw new Error('passwords do not match');
-      }
+  body('s_password', 'password must be between 6-20 characters').isLength({
+    min: 6,
+    max: 20,
+  }),
+  body('s_password_confirm').custom((value, { req }) => {
+    if (value !== req.body.s_password) {
+      throw new Error('passwords do not match');
+    }
 
-      return true;
-    }),
+    return true;
+  }),
   (req, res, next) => {
     const errors = validationResult(req);
     const errs = {};
@@ -71,6 +68,22 @@ exports.signup_post = [
       });
       return;
     }
+    // add the new user to mongodb
+    bcrypt.hash(req.body.s_password, 10, (err, hashedPassword) => {
+      if (err) {
+        return next(err);
+      }
+      const user = new User({
+        username: req.body.s_username,
+        password: hashedPassword,
+        isMember: false,
+        isAdmin: false,
+      }).save((err) => {
+        if (err) {
+          return next(err);
+        }
+      });
+    });
     res.redirect('/');
   },
 ];
@@ -79,8 +92,18 @@ exports.login_get = (req, res, next) => {
   res.render('login', { loginPg: true });
 };
 
-exports.login_post = (req, res, next) => {
-  res.send('login post');
+exports.login_post = passport.authenticate('local', {
+  successRedirect: '/',
+  failureRedirect: '/login',
+});
+
+exports.logout_get = (req, res, next) => {
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
+    res.redirect('/');
+  });
 };
 
 exports.membership_get = (req, res, next) => {

@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 const MessageSchema = new Schema({
   userName: String,
   message: String,
-  date: String,
+  title: String,
+  date: Date,
 });
 
 module.exports = mongoose.model('Message', MessageSchema);

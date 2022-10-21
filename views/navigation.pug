@@ -8,8 +8,8 @@ nav
                 a(href="membership") Become a Member 
             div.nav-buttons
                 if user
-                    span=user.username
-                    a.btn-link#login-btn(href='/logout') Log Out
+                    span=user
+                    a.btn-link#logout-btn(href='/logout') Log Out
                 else
                     a.btn-link#sign-up-btn(href='/sign-up') Sign Up 
                     a.btn-link#login-btn(href='/login') Log In

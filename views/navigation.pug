@@ -5,7 +5,7 @@ nav
         div.nav-right
         //- TODO Become a member only visible if logged in, add become an admin 
         -//
-            if user && !user.isMember
+            if user && !isMember
                 a(href="membership") Become a Member 
             div.nav-buttons
                 if user

@@ -8,7 +8,7 @@ This web app hosts a message board where:
 
 - only registered users can post messages
 
-- there are special roles: members and admins
+- there are special roles for users: members and admins
 
 - only members and admin can see the author and date of a message
 

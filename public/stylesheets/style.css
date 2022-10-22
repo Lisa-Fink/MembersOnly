@@ -121,7 +121,7 @@ button, .btn-link {
     gap: 2px;
 }
 
-.user-form input {
+.user-form input, .member-form input {
     padding: 8px;
     border-radius: 12px;
     border: 1px solid rgb(40, 40, 154);
@@ -162,6 +162,7 @@ button, .btn-link {
     border-radius: 15px;
     border: 1px solid rgb(40, 40, 154);
     max-width: 600px;
+    min-width: 400px;
     margin: 30px auto;
 }
 
@@ -189,4 +190,9 @@ button, .btn-link {
 #nav-title a {
     text-decoration: none;
     color: black
+}
+
+#member-btn {
+    margin-left: 8px;
+    padding: 6px;
 }

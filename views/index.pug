@@ -4,13 +4,16 @@ block content
     div.content
         div.message-top
             h1 Welcome to the Members Only Message Board
+            if !user
+                h3 Login to Start Creating Messages!
             if user
                 a.btn-link#msg-btn(href='/create-post') Create a Post
         for message in messages
             div.message-container
-                div.message-data
-                    div.message-author Posted by #{message.username}
-                    div.message-date= message.date
+                if isMember
+                    div.message-data
+                        div.message-author Posted by #{message.username}
+                        div.message-date= message.date
                 h2=message.title
                 div.message-text=message.message
 

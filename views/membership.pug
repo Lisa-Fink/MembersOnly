@@ -1,0 +1,11 @@
+extends layout
+block content
+    div.form-container
+        form#membership-form(class='member-form' method='POST')
+            if msg
+                div=msg
+            div
+                label(for='membership_code') Enter Code:
+                input#membership_code(type='text' name='membership_code' required)
+
+                button#member-btn(type='submit') Submit

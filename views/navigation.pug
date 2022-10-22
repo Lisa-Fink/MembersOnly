@@ -3,13 +3,18 @@ nav
         h1#nav-title
             a(href='/') Members Only
         div.nav-right
-        //- TODO Become a member only visible if logged in, add become an admin 
-        -//
-            if user && !isMember
-                a(href="membership") Become a Member 
+            if user
+                div.member-status
+                    div=user          
+                    div=isAdmin ? 'admin' : isMember ? 'member' : 'non-member'
+            if user
+                div
+                    if isMember
+                        a.btn-link(href="/admin") Become an Admin
+                    else
+                        a.btn-link(href="/membership") Become a Member 
             div.nav-buttons
                 if user
-                    span=user
                     a.btn-link#logout-btn(href='/logout') Log Out
                 else
                     a.btn-link#sign-up-btn(href='/sign-up') Sign Up 

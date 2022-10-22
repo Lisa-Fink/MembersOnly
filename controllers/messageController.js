@@ -48,3 +48,14 @@ exports.create_get = (req, res, next) => {
     res.redirect('/login');
   }
 };
+
+exports.delete_post = (req, res, next) => {
+  if (req.user && req.user.isAdmin) {
+    Message.findOneAndDelete({ _id: req.body.message_id }, (err, success) => {
+      if (err) {
+        return next(err);
+      }
+      res.redirect('/');
+    });
+  }
+};

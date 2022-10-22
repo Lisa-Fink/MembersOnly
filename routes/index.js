@@ -13,11 +13,11 @@ router.get('/login', userController.login_get);
 
 router.get('/logout', userController.logout_get);
 
-router.get('/create-post', messageController.create_get);
-
 router.get('/membership', userController.membership_get);
 
 router.get('/admin', userController.admin_get);
+
+router.get('/create-post', messageController.create_get);
 
 // POST routes
 router.post('/sign-up', userController.signup_post);
@@ -26,8 +26,10 @@ router.post('/login', userController.login_post);
 
 router.post('/membership', userController.membership_post);
 
+router.post('/admin', userController.admin_post);
+
 router.post('/create-post', messageController.create_post);
 
-router.post('/admin', userController.admin_post);
+router.post('/', messageController.delete_post);
 
 module.exports = router;

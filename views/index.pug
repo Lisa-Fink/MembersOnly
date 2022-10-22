@@ -13,6 +13,10 @@ block content
                         div.message-date= message.date
                 h2=message.title
                 div.message-text=message.message
+                if user && user.isAdmin
+                    form#delete-form(method='POST')
+                        input#message_id(name='message_id' type='hidden' value=message._id)
+                        button#delete(tye='submit') Delete Post
 
 
 

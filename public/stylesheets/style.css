@@ -211,3 +211,23 @@ button, .btn-link {
     flex-direction: column;
     align-items: center;
 }
+
+#delete-form {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#delete {
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+#delete:hover {
+    background: none;
+    color:rgb(101, 117, 131)
+}
+
+#msg-btn:hover {
+    background-color:rgb(161, 186, 207)
+}

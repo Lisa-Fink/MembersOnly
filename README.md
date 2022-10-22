@@ -10,11 +10,11 @@ This web app hosts a message board where:
 
 - there are special roles for users: members and admins
 
-- only members and admin can see the author and date of a message
+- only members and admins can see the author and date of a message
 
-- only admin can delete messages.
+- only admins can delete messages.
 
-- users can gain membership or admin status by entering a secret code.
+- users can gain membership or admins status by entering a secret code.
 
 ## Frameworks/Languages used
 

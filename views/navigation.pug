@@ -1,5 +1,5 @@
 nav
-    div.navigation 
+    div.navigation
         h1#nav-title
             a(href='/') Members Only
         div.nav-right
@@ -19,3 +19,30 @@ nav
                 else
                     a.btn-link#sign-up-btn(href='/sign-up') Sign Up 
                     a.btn-link#login-btn(href='/login') Log In
+            a#about-btn(href='/') About
+
+    div.modal#about
+            div.modal-content
+                    div.modal-x
+                        span.material-symbols-outlined#about-x close
+                    div.about-text
+                        h2 About Members Only 
+                        ul
+                            li Users can create posts that anyone can see
+                            li Only members can see the author and date
+                            li Gain membership status by entering the secret code
+                            li Admins can delete posts
+                        button#about-cancel Close
+    script(type='text/javascript' defer).
+        const aboutBtn = document.getElementById('about-btn')
+        aboutBtn.onclick = () => {
+            const aboutModal = document.getElementById('about')
+            aboutModal.style.display = 'flex'
+            const close = () => aboutModal.style.display = 'none'
+            const cancelBtn = document.getElementById('about-cancel')
+            cancelBtn.onclick = close
+            const xIcon = document.getElementById('about-x')
+            xIcon.onclick = close
+            return false
+        }
+    

@@ -201,3 +201,13 @@ button, .btn-link {
     font-weight: bold;
     font-size: 20px;
 }
+
+#about-btn {
+    color: black
+}
+
+.about-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

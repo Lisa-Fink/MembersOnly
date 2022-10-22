@@ -5,11 +5,11 @@ nav
         div.nav-right
             if user
                 div.member-status
-                    div=user          
-                    div=isAdmin ? 'admin' : isMember ? 'member' : 'non-member'
-            if user
+                    div=user.username          
+                    div=user.isAdmin ? 'admin' : user.isMember ? 'member' : 'non-member'
+            if user && !user.isAdmin
                 div
-                    if isMember
+                    if user.isMember
                         a.btn-link(href="/admin") Become an Admin
                     else
                         a.btn-link(href="/membership") Become a Member 

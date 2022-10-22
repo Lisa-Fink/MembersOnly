@@ -28,8 +28,7 @@ exports.index = async (req, res, next) => {
     return next(err);
   }
   res.render('index', {
-    user: req.user && req.user.username ? req.user.username : null,
-    isMember: req.user && req.user.isMember ? req.user.isMember : null,
+    user: req.user,
     messages: messages,
   });
 };
@@ -140,8 +139,11 @@ exports.logout_get = (req, res, next) => {
 exports.membership_get = [
   loggedInCheck,
   (req, res, next) => {
+    if (req.user.isMember) {
+      res.redirect('/');
+    }
     res.render('membership', {
-      user: req.user && req.user.username ? req.user.username : null,
+      user: req.user,
     });
   },
 ];
@@ -152,7 +154,7 @@ exports.membership_post = [
     Membership.findOne({ type: 'membership' }, (err, memberData) => {
       if (err | !memberData) {
         res.render('membership', {
-          user: req.user && req.user.username ? req.user.username : null,
+          user: req.user,
           msg: 'Failed to get data',
         });
         return;
@@ -181,9 +183,9 @@ exports.membership_post = [
               }
             );
           } else {
-            // passwords do not match!
+            // incorrect code
             res.render('membership', {
-              user: req.user && req.user.username ? req.user.username : null,
+              user: req.user,
               msg: 'Incorrect Code',
             });
           }
@@ -193,10 +195,61 @@ exports.membership_post = [
   },
 ];
 
-exports.admin_get = (req, res, next) => {
-  res.send('Request Admin Status');
-};
+exports.admin_get = [
+  loggedInCheck,
+  (req, res, next) => {
+    if (!req.user.isMember | req.user.isAdmin) {
+      res.redirect('/');
+    }
+    res.render('membership', {
+      user: req.user,
+    });
+  },
+];
 
-exports.admin_post = (req, res, next) => {
-  res.send('Post Admin Request');
-};
+exports.admin_post = [
+  loggedInCheck,
+  (req, res, next) => {
+    Membership.findOne({ type: 'admin' }, (err, memberData) => {
+      if (err | !memberData) {
+        res.render('membership', {
+          user: req.user,
+          msg: 'Failed to get data',
+        });
+        return;
+      }
+      bcrypt.compare(
+        req.body.membership_code,
+        memberData.code,
+        (err, match) => {
+          if (match) {
+            console.log('match');
+            // codes match! add membership status
+            User.updateOne(
+              { username: req.user.username },
+              { $set: { isAdmin: true } },
+              (err, success) => {
+                if (err) {
+                  res.render('membership', {
+                    user:
+                      req.user && req.user.username ? req.user.username : null,
+                    msg: 'Failed to add admin',
+                  });
+                  return;
+                }
+                res.redirect('/');
+                return;
+              }
+            );
+          } else {
+            // incorrect code
+            res.render('membership', {
+              user: req.user,
+              msg: 'Incorrect Code',
+            });
+          }
+        }
+      );
+    });
+  },
+];

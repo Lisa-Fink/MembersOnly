@@ -10,7 +10,7 @@ block content
                 a.btn-link#msg-btn(href='/create-post') Create a Post
         for message in messages
             div.message-container
-                if isMember
+                if user && user.isMember
                     div.message-data
                         div.message-author Posted by #{message.username}
                         div.message-date= message.date

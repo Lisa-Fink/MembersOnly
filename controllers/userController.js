@@ -4,6 +4,7 @@ const Membership = require('../models/membership');
 const bcrypt = require('bcryptjs');
 const { body, validationResult } = require('express-validator');
 const passport = require('passport');
+const date = require('date-and-time');
 
 const loggedOutCheck = (req, res, next) => {
   if (req.user) {
@@ -23,14 +24,61 @@ const loggedInCheck = (req, res, next) => {
 
 exports.index = async (req, res, next) => {
   // get messages
-  const messages = await Message.find({}).sort({ date: -1 });
-  if (messages == null) {
-    return next(err);
-  }
-  res.render('index', {
-    user: req.user,
-    messages: messages,
-  });
+  Message.find({})
+    .sort({ date: -1 })
+    .exec((err, messages) => {
+      if (err) {
+        return next(err);
+      }
+      const formatDate = (unformattedDate) => {
+        const currentDate = new Date();
+        if (date.isSameDay(unformattedDate, currentDate)) {
+          // get hours apart
+          const hoursAgo = parseInt(
+            date.subtract(currentDate, unformattedDate).toHours()
+          );
+          if (hoursAgo) {
+            if (hoursAgo == 1) {
+              return `${hoursAgo} hour ago`;
+            }
+            return `${hoursAgo} hours ago`;
+          }
+          const minsAgo = parseInt(
+            date.subtract(currentDate, unformattedDate).toMinutes()
+          );
+          if (minsAgo) {
+            if (minsAgo == 1) {
+              return `${minsAgo} minute ago`;
+            }
+            return `${minsAgo} minutes ago`;
+          }
+          const secsAgo = date
+            .subtract(currentDate, unformattedDate)
+            .toSeconds();
+          if (secsAgo == 1) {
+            return `${secsAgo} second ago`;
+          }
+          return `${secsAgo} seconds ago`;
+        }
+        return date.format(unformattedDate, 'MMM DD YYYY');
+      };
+      let formatted = [];
+      // formats the date of each message
+      messages.forEach((message) => {
+        let newMessage = {
+          _id: message._id,
+          date: formatDate(message.date),
+          username: message.username,
+          title: message.title,
+          message: message.message,
+        };
+        formatted.push(newMessage);
+      });
+      res.render('index', {
+        user: req.user,
+        messages: formatted,
+      });
+    });
 };
 
 exports.signup_get = [
@@ -51,7 +99,6 @@ exports.signup_post = [
       }).count();
 
       if (user) {
-        console.log(user);
         throw new Error('Username not available');
       }
     }),
@@ -164,7 +211,6 @@ exports.membership_post = [
         memberData.code,
         (err, match) => {
           if (match) {
-            console.log('match');
             // codes match! add membership status
             User.updateOne(
               { username: req.user.username },
@@ -223,7 +269,6 @@ exports.admin_post = [
         memberData.code,
         (err, match) => {
           if (match) {
-            console.log('match');
             // codes match! add membership status
             User.updateOne(
               { username: req.user.username },

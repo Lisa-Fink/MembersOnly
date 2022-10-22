@@ -161,8 +161,7 @@ button, .btn-link {
     background-color: aliceblue;
     border-radius: 15px;
     border: 1px solid rgb(40, 40, 154);
-    max-width: 600px;
-    min-width: 400px;
+    width: 460px;
     margin: 30px auto;
 }
 
@@ -213,6 +212,7 @@ button, .btn-link {
 }
 
 #delete-form {
+    margin-top: 8px;
     display: flex;
     justify-content: flex-end;
 }

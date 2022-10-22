@@ -9,6 +9,7 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cookie-parser": "~1.4.4",
+    "date-and-time": "^2.4.1",
     "debug": "~2.6.9",
     "dotenv": "^16.0.3",
     "express": "~4.16.1",

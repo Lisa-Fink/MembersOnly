@@ -23,7 +23,7 @@ const loggedInCheck = (req, res, next) => {
 
 exports.index = async (req, res, next) => {
   // get messages
-  const messages = await Message.find({});
+  const messages = await Message.find({}).sort({ date: -1 });
   if (messages == null) {
     return next(err);
   }

@@ -1,6 +1,7 @@
 h1= 'Log In'
 form#login-form(class='user-form' method='POST' action='/login')
-    div#form-err=topErr && topErr
+    if fail
+        div#form-err Invalid username or password
 
     div 
         label(for='username') Username:

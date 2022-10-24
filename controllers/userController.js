@@ -165,13 +165,13 @@ exports.signup_post = [
 exports.login_get = [
   loggedOutCheck,
   (req, res, next) => {
-    res.render('login', { loginPg: true });
+    res.render('login', { loginPg: true, fail: req.query.fail });
   },
 ];
 
 exports.login_post = passport.authenticate('local', {
   successRedirect: '/',
-  failureRedirect: '/login',
+  failureRedirect: '/login?fail=True',
 });
 
 exports.logout_get = (req, res, next) => {
